@@ -16,9 +16,11 @@ sed -i "\#<artifactId>liberty-maven-plugin</artifactId>#a<configuration><install
 cat system/pom.xml
 cat inventory/pom.xml
 
-sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-java11-openj9-ubi;FROM $DOCKER_USERNAME/olguides:$BUILD;g" system/Dockerfile inventory/Dockerfile
-sed -i "s;RUN features.sh;#RUN features.sh;g" system/Dockerfile inventory/Dockerfile
-cat system/Dockerfile
-cat inventory/Dockerfile
+if [[ "$DOCKER_USERNAME" != "" ]]; then
+    sed -i "s;FROM icr.io/appcafe/open-liberty:kernel-slim-java11-openj9-ubi;FROM $DOCKER_USERNAME/olguides:$BUILD;g" system/Dockerfile inventory/Dockerfile
+    sed -i "s;RUN features.sh;#RUN features.sh;g" system/Dockerfile inventory/Dockerfile
+    cat system/Dockerfile
+    cat inventory/Dockerfile
+fi
 
 sudo -u runner ../scripts/testApp.sh
