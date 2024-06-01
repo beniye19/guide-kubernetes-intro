@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: inventory-container
-        image: inventory:1.0-SNAPSHOT
+        image: sha256:72d186fdbf7ac3e5b7910ce9781f52fecbd2d6d56cf83720b17378401fc132d9
         ports:
         - containerPort: 9090
         env:
